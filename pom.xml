@@ -93,7 +93,7 @@
 			<scope>system</scope>
 			<systemPath>${toolsjar}</systemPath>
 		</dependency>
-		 -->
+		 -->	
 	</dependencies>
 
 	<build>
@@ -102,6 +102,33 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-antrun-plugin</artifactId>
 				<version>3.0.0</version>
+				<dependencies>
+                <dependency>
+                    <groupId>ant-contrib</groupId>
+                    <artifactId>ant-contrib</artifactId>
+                    <version>1.0b3</version>
+					<exclusions>
+						<exclusion>
+							<groupId>ant</groupId>
+							<artifactId>ant</artifactId>
+						</exclusion>
+					</exclusions>
+                </dependency>
+				<!--
+				 플러그인의 디펜던시를 출력했을 때..
+				   mvn dependency:resolve-plugins
+				 				 
+				 maven-antrun-plugin -> ant-1.9.14.jar
+				 ant 1.9.14가 포함된다.
+				
+				아래 디펜던시를 걸어줄 필요는 없다.
+				<dependency>
+					<groupId>org.apache.ant</groupId>
+					<artifactId>ant</artifactId>
+					<version>1.10.11</version>
+				</dependency>
+				-->
+            </dependencies>				
 				<executions>
 					<execution>
 						<phase>validate</phase>
@@ -110,6 +137,14 @@
 						</goals>
 						<configuration>
 							<target>
+								<taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
+								<if>
+									<available file="log.txt"/>
+									<then>
+										<echo level="info">log.txt 파일이 존재합니다. 해당 파일을 삭제합니다.</echo>
+										<delete file="log.txt"/>
+									</then>
+								</if>
 <echo level="info" file="log.txt" append="false">현재 활성화된 jdk.version 프로퍼티
 ${java.version}
 ${java.home.prop}

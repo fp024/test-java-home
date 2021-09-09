@@ -90,12 +90,38 @@ Eclipse 2021-06 버전의 최소 사양은 JDK 11 이상이여서 설정할 수 
 * 문제 회피방법으로  JAVA_8_HOME 과 같은 환경 변수를 정의해두고,  pom.xml 내에서 `${env.JAVA_8_HOME}` 로 직접 환경변수 값을 얻어오는 방법이 있음. 
 * IntelliJ에서는 이런 문제가 없이 ${java.home}의 값이 항상 프로젝트 JDK 설정으로 잘 적용됨.
 
-#### 기타
+### 기타
 
-* 이미지 사용 글꼴
-  * Naver D2 Coding
+#### ant-contrib 사용시 `Caused by: java.lang.NoSuchMethodError: org.apache.tools.ant.util.FileUtils.getFileUtils()Lorg/apache/tools/ant/util/FileUtils;` 오류
+*  ant-contrib 자체에서 디펜던시가 오래된 버전의 ant를 끌고 오는 것 같다.  그래서 maven-antrun-plugin에서 그런 메서드가 없다는 오류가 나오는 것 같다.
+*   ant를 exclude 해두도록 한다.
+  ```xml
+  <dependency>
+    <groupId>ant-contrib</groupId>
+    <artifactId>ant-contrib</artifactId>
+    <version>1.0b3</version>
+    <exclusions>
+      <exclusion>
+        <groupId>ant</groupId>
+        <artifactId>ant</artifactId>
+      </exclusion>
+    </exclusions>
+  </dependency>
+  ```
+* https://repo1.maven.org/maven2/ant-contrib/ant-contrib/1.0b3/ant-contrib-1.0b3.pom
+	* 위의 pom.xml내용을 보면 ant-contrib이 ant 1.5 버전을 디펜던시하는 것을 알 수 있다.
 
-#### 참조
+* maven-antrun-plugin에 ant 1.9.14.jar를 디펜던시하기 때문에 일부러 ant를 디펜던시 해줄 필요는 없는 것 같다.
+
+
+
+#### 이미지 사용 글꼴
+
+* Naver D2 Coding
+
+
+
+### 참조
 
 * https://stackoverflow.com/questions/3080437/jdk-tools-jar-as-maven-dependency
 * https://bugs.eclipse.org/bugs/show_bug.cgi?id=432992
