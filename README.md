@@ -115,6 +115,19 @@ Eclipse 2021-06 버전의 최소 사양은 JDK 11 이상이여서 설정할 수 
 
 
 
+### eclipse 2021-12 버전에서 동작 확인
+
+m2e로 빌드될 때는 여전히 eclipse 실행 JDK 버전 기준으로 동작한다. 앞으로도 고쳐주진 않을 것 같음.
+
+```
+현재 활성화된 jdk.version 프로퍼티
+17.0.1
+D:\Eclipse\eclipse\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_17.0.1.v20211116-1657\jre
+JDK 9 이상 부터 tools.jar, rt.jar이 제거되어 없음, 다른 방식으로 사용해야함.
+```
+
+
+
 #### 이미지 사용 글꼴
 
 * Naver D2 Coding
