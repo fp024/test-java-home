@@ -3,3 +3,7 @@ target/
 log.txt
 .classpath
 .project
+
+# maven-wrapper.properties 만 있어도 jar를 maven-wrapper.jar 를 자동으로 다운로드 받는다.
+.mvn/wrapper/*
+!.mvn/wrapper/maven-wrapper.properties
